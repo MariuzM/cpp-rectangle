@@ -3,6 +3,43 @@
 
 using namespace std;
 
+// Function to handle events
+void handleEvents(sf::RenderWindow& window) {
+  sf::Event event;
+
+  while (window.pollEvent(event)) {
+    if (event.type == sf::Event::Closed ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+      window.close();
+    }
+
+    if (event.type == sf::Event::Resized) {
+      sf::Vector2u windowSize = window.getSize();
+      cout << "Window Size: " << windowSize.x << "x" << windowSize.y << endl;
+
+      sf::View view(sf::FloatRect(0, 0, windowSize.x, windowSize.y));
+      window.setView(view);
+    }
+  }
+}
+
+// Function to update game state
+void updateGameState(sf::RectangleShape& rect, sf::Vector2f& rectPos,
+                     int& xVelocity, int& yVelocity, int rectSizeX,
+                     int rectSizeY, sf::RenderWindow& window) {
+  if (rectPos.x < 0 || rectPos.x > window.getSize().x - rectSizeX) {
+    xVelocity *= -1;
+  }
+
+  if (rectPos.y < 0 || rectPos.y > window.getSize().y - rectSizeY) {
+    yVelocity *= -1;
+  }
+
+  rectPos.x += xVelocity;
+  rectPos.y += yVelocity;
+  rect.setPosition(rectPos);
+}
+
 int main() {
   sf::RenderWindow window(sf::VideoMode(550, 500), "Rectangle");
   window.setFramerateLimit(60);
@@ -20,41 +57,10 @@ int main() {
   int yVelocity = 7;
 
   while (window.isOpen()) {
-    sf::Event event;
+    handleEvents(window);
 
-    // if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-    //   sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-    //   std::cout << "X: " << mousePos.x << " Y: " << mousePos.y << std::endl;
-    // }
-
-    while (window.pollEvent(event)) {
-      if (event.type == sf::Event::Closed) {
-        window.close();
-      }
-
-      if (event.type == sf::Event::Resized) {
-        sf::Vector2u windowSize = window.getSize();
-        cout << "Window Size: " << windowSize.x << "x" << windowSize.y << endl;
-
-        sf::View view(sf::FloatRect(0, 0, windowSize.x, windowSize.y));
-        window.setView(view);
-      }
-
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-        window.close();
-      }
-    }
-
-    if (rectPos.x < 0 || rectPos.x > window.getSize().x - rectSizeX) {
-      xVelocity *= -1;
-    }
-    if (rectPos.y < 0 || rectPos.y > window.getSize().y - rectSizeY) {
-      yVelocity *= -1;
-    }
-
-    rectPos.x += xVelocity;
-    rectPos.y += yVelocity;
-    rect.setPosition(rectPos);
+    updateGameState(rect, rectPos, xVelocity, yVelocity, rectSizeX, rectSizeY,
+                    window);
 
     window.clear();
     window.draw(rect);
