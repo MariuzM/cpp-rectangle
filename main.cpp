@@ -23,7 +23,7 @@ void handleEvents(sf::RenderWindow& window) {
 }
 
 // Function to update game state
-void updateGameState(sf::RectangleShape& rect, sf::Vector2f& rectPos, int& xVelocity, int& yVelocity, int rectSizeX, int rectSizeY, sf::RenderWindow& window) {
+void updateGameState(sf::RectangleShape& rect, sf::Vector2f& rectPos, int& xVelocity, int& yVelocity, int& rectSizeX, int& rectSizeY, sf::RenderWindow& window) {
     if (rectPos.x < 0 || rectPos.x > window.getSize().x - rectSizeX) {
         xVelocity *= -1;
     }
