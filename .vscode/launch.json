@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/marius/Desktop/cpp_rectangle",
-      "program": "/Users/marius/Desktop/cpp_rectangle/build/Debug/outDebug"
+      "cwd": "/Volumes/Media/Dev_Projects/Projects/test__cpp_rectangle",
+      "program": "/Volumes/Media/Dev_Projects/Projects/test__cpp_rectangle/build/Debug/outDebug"
     }
   ]
 }
