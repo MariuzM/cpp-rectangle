@@ -12,10 +12,10 @@ class Box {
         this->height = height;
     }
     sf::RectangleShape getRect() {
-        sf::RectangleShape rect;
-        rect.setPosition(sf::Vector2f(this->x, this->y));
-        rect.setSize(sf::Vector2f(this->width, this->height));
-        return rect;
+        sf::RectangleShape box;
+        box.setPosition(sf::Vector2f(this->x, this->y));
+        box.setSize(sf::Vector2f(this->width, this->height));
+        return box;
     }
 
    private:
@@ -45,34 +45,34 @@ void handleEvents(sf::RenderWindow& window) {
 }
 
 // Function to update game state
-void updateGameState(sf::RectangleShape& rect, sf::Vector2f& rectPos, int& xVelocity, int& yVelocity, int& rectSizeX, int& rectSizeY, sf::RenderWindow& window) {
-    if (rectPos.x < 0 || rectPos.x > window.getSize().x - rectSizeX) {
+void updateGameState(sf::RectangleShape& box, sf::Vector2f& boxPos, int& xVelocity, int& yVelocity, int& boxSizeX, int& boxSizeY, sf::RenderWindow& window) {
+    if (boxPos.x < 0 || boxPos.x > window.getSize().x - boxSizeX) {
         xVelocity *= -1;
     }
 
-    if (rectPos.y < 0 || rectPos.y > window.getSize().y - rectSizeY) {
+    if (boxPos.y < 0 || boxPos.y > window.getSize().y - boxSizeY) {
         yVelocity *= -1;
     }
 
-    rectPos.x += xVelocity;
-    rectPos.y += yVelocity;
-    rect.setPosition(rectPos);
+    boxPos.x += xVelocity;
+    boxPos.y += yVelocity;
+    box.setPosition(boxPos);
 }
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(550, 500), "Rectangle");
+    sf::RenderWindow window(sf::VideoMode(550, 500), "Box");
     window.setFramerateLimit(60);
 
-    int rectSizeX = 50;
-    int rectSizeY = 50;
+    int boxSizeX = 50;
+    int boxSizeY = 50;
 
-    Box rect_1(200, 200, 50, 50);
+    Box box_1(200, 200, 50, 50);
 
-    sf::RectangleShape rect_2;
-    sf::Vector2f rectPos(100, 100);
+    sf::RectangleShape box_2;
+    sf::Vector2f boxPos(100, 100);
 
-    rect_2.setPosition(rectPos);
-    rect_2.setSize(sf::Vector2f(rectSizeX, rectSizeY));
+    box_2.setPosition(boxPos);
+    box_2.setSize(sf::Vector2f(boxSizeX, boxSizeY));
 
     int xVelocity = 7;
     int yVelocity = 7;
@@ -80,11 +80,11 @@ int main() {
     while (window.isOpen()) {
         handleEvents(window);
 
-        updateGameState(rect_2, rectPos, xVelocity, yVelocity, rectSizeX, rectSizeY, window);
+        updateGameState(box_2, boxPos, xVelocity, yVelocity, boxSizeX, boxSizeY, window);
 
         window.clear();
-        window.draw(rect_1.getRect());
-        window.draw(rect_2);
+        window.draw(box_1.getRect());
+        window.draw(box_2);
         window.display();
     }
 
