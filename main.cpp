@@ -3,6 +3,28 @@
 
 using namespace std;
 
+class Box {
+   public:
+    Box(int x, int y, int width, int height) {
+        this->x = x;
+        this->y = y;
+        this->width = width;
+        this->height = height;
+    }
+    sf::RectangleShape getRect() {
+        sf::RectangleShape rect;
+        rect.setPosition(sf::Vector2f(this->x, this->y));
+        rect.setSize(sf::Vector2f(this->width, this->height));
+        return rect;
+    }
+
+   private:
+    int x;
+    int y;
+    int width;
+    int height;
+};
+
 // Function to handle events
 void handleEvents(sf::RenderWindow& window) {
     sf::Event event;
@@ -44,11 +66,13 @@ int main() {
     int rectSizeX = 50;
     int rectSizeY = 50;
 
-    sf::RectangleShape rect;
+    Box rect_1(200, 200, 50, 50);
+
+    sf::RectangleShape rect_2;
     sf::Vector2f rectPos(100, 100);
 
-    rect.setPosition(rectPos);
-    rect.setSize(sf::Vector2f(rectSizeX, rectSizeY));
+    rect_2.setPosition(rectPos);
+    rect_2.setSize(sf::Vector2f(rectSizeX, rectSizeY));
 
     int xVelocity = 7;
     int yVelocity = 7;
@@ -56,10 +80,11 @@ int main() {
     while (window.isOpen()) {
         handleEvents(window);
 
-        updateGameState(rect, rectPos, xVelocity, yVelocity, rectSizeX, rectSizeY, window);
+        updateGameState(rect_2, rectPos, xVelocity, yVelocity, rectSizeX, rectSizeY, window);
 
         window.clear();
-        window.draw(rect);
+        window.draw(rect_1.getRect());
+        window.draw(rect_2);
         window.display();
     }
 
