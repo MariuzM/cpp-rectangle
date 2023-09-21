@@ -38,28 +38,25 @@ void handleEvents(sf::RenderWindow& window) {
 
 class Box {
    private:
-    int _x;
-    int _y;
-    int _w;
-    int _h;
+    int x_, y_, w_, h_;
 
    public:
-    explicit Box(int x, int y, int w, int h) : _x(x), _y(y), _w(w), _h(h) {}
+    explicit Box(int x, int y, int w, int h) : x_(x), y_(y), w_(w), h_(h) {}
 
-    sf::RectangleShape getRect() {
+    sf::RectangleShape rect() {
         sf::RectangleShape rect;
-        rect.setPosition(sf::Vector2f(_x, _y));
-        rect.setSize(sf::Vector2f(_w, _h));
+        rect.setPosition(sf::Vector2f(x_, y_));
+        rect.setSize(sf::Vector2f(w_, h_));
         return rect;
     }
 
     sf::Vector2f getPosition() {
-        return sf::Vector2f(_x, _y);
+        return sf::Vector2f(x_, y_);
     }
 
     void setPosition(const int& x, const int& y) {
-        _x = x;
-        _y = y;
+        x_ = x;
+        y_ = y;
     }
 };
 
@@ -101,7 +98,7 @@ int main() {
         // updateGameState(box, xVelocity, yVelocity, boxSizeX, boxSizeY, window);
 
         window.clear();
-        window.draw(box.getRect());
+        window.draw(box.rect());
         window.display();
     }
 
